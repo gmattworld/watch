@@ -4,42 +4,77 @@ namespace watch
 {
     class Program
     {
+        private readonly Stopstart stopstart;
+
         static void Main(string[] args)
         {
-            var stopstart = new Stopstart();
-
-            while(true)
-            {
-                try
-                {
-                    Console.WriteLine("Enter 'start' to start stopwatch\n\n Enter 'stop' to end stopwatch\n\n press any key to stop");
-                    var input = Console.ReadLine().ToLower();
-
-                    if (input == "start")
-                    { stopstart.Start(); }
-                    else if (input == "stop")
-                    { stopstart.Stop();
-                        Console.WriteLine("Duration: {0}", stopstart.Getduration());
-                    }
-
-                    else
-                        break;
-
-                }
-                catch(InvalidOperationException)
-                {
-                    Console.WriteLine("stopwatch is in motion");
-                }
-            }
-
+            // Introductory Message
+            Console.WriteLine("Welcome to Console StopWatch");
+            Console.WriteLine("===============================");
+            Console.WriteLine("\n");
+            Program program = new Program();
+            program.stopwatch();
         }
 
+        public Program()
+        {
+            // Instatiate Stopwatch
+            stopstart = new Stopstart();
+        }
 
-        
+        public void stopwatch(bool isrunning = false)
+        {
+            try
+            {
+                if (!isrunning)
+                {
+                    Console.Write("To start the stop watch, kindly Press 'Start' and hit enter button:  ");
+                }
 
+                var input = Console.ReadLine().ToLower();
 
+                if (input == "start" || input == "s")
+                {
+                    stopstart.Start();
+                    Console.WriteLine("===============================");
+                    Console.WriteLine("Stopwatch running...");
+                    Console.Write("To stop the stopwatch, kindly press 'Stop' and hit enter button: ");
+                    stopwatch(true);
+                }
+                else if (input == "stop")
+                {
+                    stopstart.Stop();
+                    Console.WriteLine("===============================");
+                    Console.WriteLine("Stopwatch Stopped...");
+                    Console.WriteLine($"The stop watch ran for : {stopstart.Getduration()}");
+
+                    Console.WriteLine("\n");
+                    Console.WriteLine("===============================");
+
+                    Console.Write("To try again press 'rerun' and hit enter button:  ");
+                    var check = Console.ReadLine().ToLower();
+
+                    if (check == "rerun")
+                    {
+                        Console.WriteLine("\n");
+                        stopwatch();
+                    }
+                    else
+                    {
+                        Console.WriteLine("\n");
+                        Console.WriteLine("Thank you for using my solution");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("===============================");
+                    Console.Write("Invalid user input:  ");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 }
-
-
-

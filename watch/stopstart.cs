@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace watch
 {
@@ -13,7 +11,7 @@ namespace watch
 
         public void Start()
         {
-                if(_isrunning)
+            if (_isrunning)
                 throw new InvalidOperationException("stopwatch is already running");
 
             _start = DateTime.Now;
@@ -31,7 +29,8 @@ namespace watch
 
         public TimeSpan Getduration()
         {
-            return _start - _stop;
+            return _stop.Subtract(_start);
+            //return _start - _stop;
         }
     }
 }
